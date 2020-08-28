@@ -130,26 +130,27 @@ def runsubsamples(sam, fastq, samplename):
 #sam, fastq, outfilename
 #runsubsamples(sys.argv[1], sys.argv[2], sys.argv[3])
 
-samples = ['TWIST_HUMAN_POOL_S14_L003', 'CAF_FF_INTEGRANT_S13_L003']
-samplenames = ['hg38OligoPool', 'hg38Integrants']
+samples = ['CAD_FF_20_S83', 'CAD_FF_5_S79', 'CAD_GFP_20_S84', 'CAD_GFP_5_S80', 'N2A_FF_20_S85', 'N2A_FF_5_S81', 'N2A_GFP_20_S86', 'N2A_GFP_5_S82']
+samplenames = ['CADFirefly.20ug', 'CADFirefly.500ng', 'CADGFP.20ug', 'CADGFP.500ng', 'N2AFirefly.20ug', 'N2AFirefly.500ng', 'N2AGFP.20ug', 'N2AGFP.500ng']
 
-readdir = '/beevol/home/taliaferro/data/cisElementScreen/human/IntegrationTest/RawReads/'
-samdir = '/beevol/home/taliaferro/data/cisElementScreen/human/IntegrationTest/Mapping/'
+readdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/TestRNASequencing/RawReads'
+samdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/TestRNASequencing/Alignments'
 
 '''
 #Subsampling reads
 for idx, sample in enumerate(samples):
-	revreads = os.path.join(readdir, sample + '_R2_001.fastq.gz')
+	revreads = os.path.join(readdir, sample + '_L002_R2_001.fastq.gz')
 	samplename = samplenames[idx]
 	samfile = os.path.join(samdir, samplename + '.sam')
 	print('Analyzing {0}, sample {1} of {2}...'.format(samplename, idx + 1, len(samplenames)))
 
 	runsubsamples(samfile, revreads, samplename)
-'''
 
+
+'''
 #All reads
 for idx, sample in enumerate(samples):
-	revreads = os.path.join(readdir, sample + '_L004_R2_001.fastq.gz')
+	revreads = os.path.join(readdir, sample + '_L002_R2_001.fastq.gz')
 	samplename = samplenames[idx]
 	samfile = os.path.join(samdir, samplename + '.sam')
 
@@ -160,4 +161,6 @@ for idx, sample in enumerate(samples):
 	umis = fastq2UMI(revreads)
 	print('Connecting oligo counts and UMIs...')
 	umisperoligo(oligo2reads, umis, samplename)
+
+
 
