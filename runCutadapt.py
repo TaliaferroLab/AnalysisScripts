@@ -25,7 +25,16 @@ for idx, sample in enumerate(samples):
 	print('Trimming {0}, sample {1} of {2}...'.format(sample, idx + 1, len(samples)))
 	input1 = sample + '.fastq.gz'
 	input2 = input1.replace('_R1_', '_R2_')
-	samplename = sample[:-16]
+	if 'Soma_FF' in input1:
+		index = 13
+	elif 'Neurite_FF' in input1:
+		index = 16
+	elif 'Soma_GFP' in input1:
+		index = 14
+	elif 'Neurite_GFP' in input1:
+		index = 17
+	
+	samplename = sample[:index]
 	samplename = samplename[:-2] + '_Rep' + samplename[-1]
 	output1 = '{0}.R1.trimmed.fq.gz'.format(samplename)
 	output2 = '{0}.R2.trimmed.fq.gz'.format(samplename)
