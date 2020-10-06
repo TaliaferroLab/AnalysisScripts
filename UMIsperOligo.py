@@ -130,11 +130,26 @@ def runsubsamples(sam, fastq, samplename):
 #sam, fastq, outfilename
 #runsubsamples(sys.argv[1], sys.argv[2], sys.argv[3])
 
-samples = ['CAD_FF_20_S83', 'CAD_FF_5_S79', 'CAD_GFP_20_S84', 'CAD_GFP_5_S80', 'N2A_FF_20_S85', 'N2A_FF_5_S81', 'N2A_GFP_20_S86', 'N2A_GFP_5_S82']
-samplenames = ['CADFirefly.20ug', 'CADFirefly.500ng', 'CADGFP.20ug', 'CADGFP.500ng', 'N2AFirefly.20ug', 'N2AFirefly.500ng', 'N2AGFP.20ug', 'N2AGFP.500ng']
+samples = ['CAD_Neurite_FF_1_S13, CAD_Neurite_FF_2_S14', 'CAD_Neurite_FF_3_S15', 'CAD_Neurite_FF_4_S16',
+'CAD_Soma_FF_1_S9', 'CAD_Soma_FF_2_S10', 'CAD_Soma_FF_3_S11', 'CAD_Soma_FF_4_S12',
+'CAD_Neurite_GFP_1_S29', 'CAD_Neurite_GFP_2_S30', 'CAD_Neurite_GFP_3_S31', 'CAD_Neurite_GFP_4_S32',
+'CAD_Soma_GFP_1_S25', 'CAD_Soma_GFP_2_S26', 'CAD_Soma_GFP_3_S27', 'CAD_Soma_GFP_4_S28',
+'N2A_Neurite_FF_1_S5', 'N2A_Neurite_FF_2_S6', 'N2A_Neurite_FF_3_S7', 'N2A_Neurite_FF_4_S8',
+'N2A_Soma_FF_1_S1', 'N2A_Soma_FF_2_S2', 'N2A_Soma_FF_3_S3', 'N2A_Soma_FF_4_S4',
+'N2A_Neurite_GFP_1_S21', 'N2A_Neurite_GFP_2_S22', 'N2A_Neurite_GFP_3_S23', 'N2A_Neurite_GFP_4_S24',
+'N2A_Soma_GFP_1_S17', 'N2A_Soma_GFP_2_S18', 'N2A_Soma_GFP_3_S19', 'N2A_Soma_GFP_4_S20']
 
-readdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/TestRNASequencing/RawReads'
-samdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/TestRNASequencing/Alignments'
+samplenames = ['CAD_Neurite_FF_Rep1', 'CAD_Neurite_FF_Rep2', 'CAD_Neurite_FF_Rep3', 'CAD_Neurite_FF_Rep4',
+'CAD_Soma_FF_Rep1', 'CAD_Soma_FF_Rep2', 'CAD_Soma_FF_Rep3', 'CAD_Soma_FF_Rep4',
+'CAD_Neurite_GFP_Rep1', 'CAD_Neurite_GFP_Rep2', 'CAD_Neurite_GFP_Rep3', 'CAD_Neurite_GFP_Rep4',
+'CAD_Soma_GFP_Rep1', 'CAD_Soma_GFP_Rep2', 'CAD_Soma_GFP_Rep3', 'CAD_Soma_GFP_Rep4',
+'N2A_Neurite_FF_Rep1', 'N2A_Neurite_FF_Rep2', 'N2A_Neurite_FF_Rep3', 'N2A_Neurite_FF_Rep4',
+'N2A_Soma_FF_Rep1', 'N2A_Soma_FF_Rep2', 'N2A_Soma_FF_Rep3', 'N2A_Soma_FF_Rep4',
+'N2A_Neurite_GFP_Rep1', 'N2A_Neurite_GFP_Rep2', 'N2A_Neurite_GFP_Rep3', 'N2A_Neurite_GFP_Rep4',
+'N2A_Soma_GFP_Rep1', 'N2A_Soma_GFP_Rep2', 'N2A_Soma_GFP_Rep3', 'N2A_Soma_GFP_Rep4']
+
+readdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/FractionationSequencing/RawReads'
+samdir = '/beevol/home/taliaferro/data/cisElementScreen/FocusedScreen/FractionationSequencing/Alignments'
 
 '''
 #Subsampling reads
@@ -150,7 +165,7 @@ for idx, sample in enumerate(samples):
 '''
 #All reads
 for idx, sample in enumerate(samples):
-	revreads = os.path.join(readdir, sample + '_L002_R2_001.fastq.gz')
+	revreads = os.path.join(readdir, sample + '_L004_R2_001.fastq.gz')
 	samplename = samplenames[idx]
 	samfile = os.path.join(samdir, samplename + '.sam')
 
