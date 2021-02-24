@@ -105,6 +105,38 @@ def get5ssforRI(RIrmats, seq_dict, outfile):
                 ss = seq_dict[chrm].seq[ssstart : ssend].reverse_complement().upper()
             outfh.write('>' + ID + '\n' + str(ss) + '\n')
 
+def get3ssforA3ss(A3ssrmats, seq_dict, outfile):
+    with open(A3ssrmats, 'r') as infh, open(outfile, 'w') as outfh:
+        for line in infh:
+            line = line.strip().split('\t')
+            if line[0] == 'ID':
+                continue
+            gene = line[1][1:-1]
+            chrm = line[3]
+            strand = line[4]
+            longexonstart = int(line[5])
+            longexonend = int(line[6])
+            shortexonstart = int(line[7])
+            shortexonend = int(line[8])
+            flankingexonstart = int(line[9])
+            flankingexonend = int(line[10])
+            ID = ':'.join([chrm, strand, str(longexonstart), str(longexonend), str(shortexonstart), str(shortexonend), str(flankingexonstart), str(flankingexonend)])
+            if strand == '+':
+                inclusionssstart = longexonstart - 20
+                inclusionssend = longexonstart + 3
+                inclusionss = seq_dict[chrm].seq[inclusionssstart : inclusionssend].upper()
+                exclusionssstart = shortexonstart - 20
+                exclusionssend = shortexonstart + 3
+                exclusionss = seq_dict[chrm].seq[exclusionssstart : exclusionssend].upper()
+            elif strand == '-':
+                inclusionssstart = longexonend - 3
+                inclusionssend = longexonend + 20
+                inclusionss = seq_dict[chrm].seq[inclusionssstart : inclusionssend].reverse_complement().upper()
+                exclusionssstart = shortexonend - 3
+                exclusionssend = shortexonend + 20
+                exclusionss = seq_dict[chrm].seq[exclusionssstart : exclusionssend].reverse_complement().upper()
+            outfh.write('>' + ID + ':exclusion' + '\n' + str(exclusionss) + '\n' + '>' + ID + ':inclusion' + '\n' + str(inclusionss) + '\n')
+
 #OK so after supplying these fastas to MaxEnt, you get back an output that needs to be parsed.
 
 #This can parse both a5 output and SE output
@@ -153,7 +185,8 @@ def parsemaxentri(rimaxentout, outfile):
 #get5ssforA5ss(sys.argv[2], seq_dict, sys.argv[3])
 #get5ssforSE(sys.argv[2], seq_dict, sys.argv[3])
 #get5ssforRI(sys.argv[2], seq_dict, sys.argv[3])
+#get3ssforA3ss(sys.argv[2], seq_dict, sys.argv[3])
 
 #For maxent parsing
-#parsemaxenta5(sys.argv[1], sys.argv[2])
-parsemaxentri(sys.argv[1], sys.argv[2])
+parsemaxenta5(sys.argv[1], sys.argv[2]) #also works for a3
+#parsemaxentri(sys.argv[1], sys.argv[2])
