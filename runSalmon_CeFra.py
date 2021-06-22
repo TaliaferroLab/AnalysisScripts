@@ -105,29 +105,32 @@ if __name__ == '__main__':
 	makeindex(args.transcripts, args.k)
 	print 'Done indexing!'
 
-	rawreaddir = '/beevol/home/taliaferro/data/APEXRIP/RawReads'
-	for rep in ['Rep1', 'Rep2', 'Rep3', 'Rep4']:
-		fr = 'KDEL-HRP_RIP_{0}_1.fastq.gz'.format(rep)
-		rr = 'KDEL-HRP_RIP_{0}_2.fastq.gz'.format(rep)
-		label = 'KDEL-HRP_RIP_{0}'.format(rep)
-		freads = os.path.join(rawreaddir, fr)
-		rreads = os.path.join(rawreaddir, rr)
-		runsalmon(label, args.threads, freads, rreads)
+	rawreaddir = '/beevol/home/taliaferro/data/CeFra/RawReads'
+	for rep in ['Rep1', 'Rep2']:
+		for cellline in ['HepG2', 'K562']:
+			for libprep in ['polyA', 'ribodep']:
+				for location in ['cytosol', 'insoluble', 'membrane', 'nucleus', 'total']:
+					fr = '{0}.{1}.{2}.{3}.1.fastq.gz'.format(cellline, location, libprep, rep)
+					rr = '{0}.{1}.{2}.{3}.2.fastq.gz'.format(cellline, location, libprep, rep)
+					label = '{0}_{1}_{2}_{3}'.format(cellline, location, libprep, rep)
+					freads = os.path.join(rawreaddir, fr)
+					rreads = os.path.join(rawreaddir, rr)
+					runsalmon(label, args.threads, freads, rreads)
 
-	for rep in ['Rep1', 'Rep2', 'Rep3', 'Rep4', 'Rep5', 'Rep6']:
-		fr = 'KDEL-HRP_Input_{0}_1.fastq.gz'.format(rep)
-		rr = 'KDEL-HRP_Input_{0}_2.fastq.gz'.format(rep)
-		label = 'KDEL-HRP_Input_{0}'.format(rep)
-		freads = os.path.join(rawreaddir, fr)
-		rreads = os.path.join(rawreaddir, rr)
-		runsalmon(label, args.threads, freads, rreads)
+#	for rep in ['Rep1', 'Rep2', 'Rep3', 'Rep4', 'Rep5', 'Rep6']:
+#		fr = 'KDEL-HRP_Input_{0}_1.fastq.gz'.format(rep)
+#		rr = 'KDEL-HRP_Input_{0}_2.fastq.gz'.format(rep)
+#		label = 'KDEL-HRP_Input_{0}'.format(rep)
+#		freads = os.path.join(rawreaddir, fr)
+#		rreads = os.path.join(rawreaddir, rr)
+#		runsalmon(label, args.threads, freads, rreads)
 
-	for samp in ['Mito', 'NES', 'NLS']:
-		for frac in ['Input', 'RIP']:
-			for rep in ['Rep1', 'Rep2', 'Rep3', 'Rep4', 'Rep5', 'Rep6']:
-				label = samp + '_' + 'APEX2' + '_' + frac + '_' + rep
-				fr = '{0}-APEX2_{1}_{2}_1.fastq.gz'.format(samp, frac, rep)
-				rr = '{0}-APEX2_{1}_{2}_2.fastq.gz'.format(samp, frac, rep)
-				freads = os.path.join(rawreaddir, fr)
-				rreads = os.path.join(rawreaddir, rr)
-				runsalmon(label, args.threads, freads, rreads)
+#	for samp in ['Mito', 'NES', 'NLS']:
+#		for frac in ['Input', 'RIP']:
+#			for rep in ['Rep1', 'Rep2', 'Rep3', 'Rep4', 'Rep5', 'Rep6']:
+#				label = samp + '_' + 'APEX2' + '_' + frac + '_' + rep
+#				fr = '{0}-APEX2_{1}_{2}_1.fastq.gz'.format(samp, frac, rep)
+#				rr = '{0}-APEX2_{1}_{2}_2.fastq.gz'.format(samp, frac, rep)
+#				freads = os.path.join(rawreaddir, fr)
+#				rreads = os.path.join(rawreaddir, rr)
+#				runsalmon(label, args.threads, freads, rreads)
