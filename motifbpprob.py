@@ -81,6 +81,7 @@ def getsummedbpprobs(seq, kmer):
 
     bpfh.close()
     os.remove('dot.ps')
+    os.remove('rna.ps')
 
     #Get the bp prob over the motif
     for motifoccurence in motifpositions:
